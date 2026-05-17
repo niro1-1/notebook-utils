@@ -1,3 +1,6 @@
 # Updated dependencies
 
 - Bumped dependencies in the project.
+
+requests >= 2.30.0
+urllib3 >= 1.26.20
