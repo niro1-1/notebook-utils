@@ -1,2 +1,4 @@
+pandas==3.0.3
 matplotlib
-pandas==3.0.4
+numpy
+scikit-learn
