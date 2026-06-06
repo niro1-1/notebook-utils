@@ -1,2 +1,5 @@
+pandas
+numpy
 matplotlib
-pandas==3.0.4
+tqdm
+pandas==2.0.0
