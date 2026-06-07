@@ -1,14 +1,17 @@
 # Streaming Data Loaders
+import os
 
-This implementation provides support for loading data in a streaming manner, allowing datasets that do not fit in memory to be processed efficiently.
 
-## Implementation Details
-- Added `StreamingDataLoader` class.
-- Integrated with S3 for on-demand batch retrieval.
+class StreamingDataLoader:
+    def __init__(self, file_path):
+        self.file_path = file_path
 
-## Usage
-```python
-loader = StreamingDataLoader(s3_bucket='my-bucket', data_key='data/')
-for batch in loader:
-    process(batch)
-``n
+    def load(self):
+        if not os.path.exists(self.file_path):
+            raise FileNotFoundError(f"{self.file_path} not found")
+
+        if os.path.getsize(self.file_path) == 0:
+            raise ValueError("Input file is empty")
+
+        with open(self.file_path, "r", encoding="utf-8") as file:
+            return file.read()
