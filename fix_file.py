@@ -1,0 +1,1 @@
+def fix_issue():\n    return 'Issue fixed'\n
