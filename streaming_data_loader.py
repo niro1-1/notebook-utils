@@ -1,14 +1,16 @@
-# Streaming Data Loaders
+"""Streaming data loader with empty file error handling."""
 
-This implementation provides support for loading data in a streaming manner, allowing datasets that do not fit in memory to be processed efficiently.
+from data_loaders import DataLoader, EmptyFileError
 
-## Implementation Details
-- Added `StreamingDataLoader` class.
-- Integrated with S3 for on-demand batch retrieval.
 
-## Usage
-```python
-loader = StreamingDataLoader(s3_bucket='my-bucket', data_key='data/')
-for batch in loader:
-    process(batch)
-``n
+class StreamingDataLoader:
+    """Streaming data loader that validates for empty files."""
+
+    def __init__(self, filepath, batch_size=32):
+        self.filepath = filepath
+        self.batch_size = batch_size
+
+    def __iter__(self):
+        lines = DataLoader(self.filepath).load_lines()
+        for i in range(0, len(lines), self.batch_size):
+            yield lines[i:i + self.batch_size]
